@@ -1,9 +1,3 @@
-// 'DOMContentLoaded' ---> Espera que termine de cargar el HTML y el script "defer" para mostrar el contenido del script. No tiene en cuenta el CSS.
-// Espera a que el DOM esté completamente cargado antes de intentar acceder al elemento con ID.
-// se dispara cuando el DOM ha sido completamente cargado.                
-//document.addEventListener('DOMContentLoaded', () => console.log('El contenido se cargó completamente.'));
-
-
 /* ------------------------------- Punto 2 ------------------------------- */
 
 
@@ -23,27 +17,22 @@ console.log(textareaValue);
 /* ------------------------------- Punto 4 ------------------------------- */
 
 
-const inputs = document.getElementsByTagName('input');
-const btn = document.getElementsByTagName('button');
+document.getElementById('origen').oninput = function() {
+    const inputs = document.getElementsByTagName('input');
+    const buttons = document.getElementsByTagName('button');
 
-function changeStateInputs() {
     for (var i = 0; i < inputs.length; i++) {
         inputs[i].disabled = false;
     }
-    for (var y = 0; y < btn.length; y++) {
-        btn[y].disabled = false;
-    }
-}
 
-changeStateInputs();
+    for (var i = 0; i < buttons.length; i++) {
+        buttons[i].disabled = false;
+    }
+};
 
 
 /* ------------------------------- Punto 5 ------------------------------- */
 
-
-// addEventListener --> Registra un evento a un objeto en específico
-// Al hacer onclick, el evento se activa y se ejecuta la función 
-// evento - funcion --> Cuando suceda el evento, se va a ejecutar la función
 
 // a. Botón "Reemplazar"
 const btnReplace = document.getElementById('btn-reemplazar');
@@ -55,31 +44,31 @@ btnReplace.addEventListener('click', () => {
     document.getElementById('origen').value = '';
 });
 
-
-/* ------------------------- REVISAR > 5.b.c.d.e ---------------------------- */
-
-
 // b. Botón "Agregar"
-const btnAdd = document.getElementsByClassName('btn-agregar');
+let btns = document.getElementsByClassName('btn-agregar');
+    btns[0].onclick = function() {
+        document.getElementById('destino').innerHTML += document.getElementById('origen').value;
+    }
 
-// Iterar sobre la colección y agregar event listeners a cada botón
-for (let i = 0; i < btnAdd.length; i++) {
-    btnAdd[i].addEventListener('click', function () {
-        // Obtener el valor del botón clickeado
-        const valorBoton = this.value;
+// c. Botón "Agregar 5 veces"
+    btns[1].onclick = function() {
+        for(var i=0; i<5; i++)
+        document.getElementById('destino').innerHTML += document.getElementById('origen').value;
+    } 
 
-        // Determinar el número de veces según el valor del botón
-        let veces = 1;
-        if (valorBoton.includes('5')) {
-            veces = 5;
-        } else if (valorBoton.includes('10')) {
-            veces = 10;
-        }
+// d. Botón "Agregar 10 veces"
+    btns[2].onclick = function() {
+        for(var i=0; i<10; i++)
+        document.getElementById('destino').innerHTML += document.getElementById('origen').value;
+    }                    
 
-        // Llamar a la función para agregar contenido al destino
-        agregarContenido(veces);
-    });
-}
+// d. Botón "Agregar n veces"
+    btns[3].onclick = function() {
+        const cant = prompt('Ingrese una cantidad')
+        for(var i=0; i<cant; i++)
+        document.getElementById('destino').innerHTML += document.getElementById('origen').value;
+    }      
+
 
 /* ------------------------------- Punto 6 ------------------------------- */
 
